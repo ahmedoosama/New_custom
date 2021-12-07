@@ -1,0 +1,38 @@
+
+div.worker{
+    color: red;
+}
+
+
+
+
+#worker-title{
+    vertical-align: middle;
+    display:inline-block;
+    text-align: left;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+    width: 45%;
+}
+
+#worker-frame {
+    text-align: center;
+    vertical-align: middle;
+    display:inline-block;
+    border: 1px solid #000000;
+    width: 55%;
+    padding: 5px 0px 5px 0px;
+}
+
+#worker-select{
+    width:95%;
+}
+
+#worker-footer{
+    background: linear-gradient(#7B7979, #393939) repeat scroll 0 0 transparent;
+    display:block;  
+    color: #ffcc00;
+    padding: 10px 5px 10px 5px;
+}
+

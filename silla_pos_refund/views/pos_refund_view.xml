@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_order_inherit_form_view" model="ir.ui.view">
+            <field name="name">pos.order.inherit.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                
+                <button name="refund" position="after">
+                    <button name="do_refund" string="Refund" type="object"
+                        attrs="{'invisible':['|',('state','=','draft'),('is_return_order','=',True)]}"/>
+                </button>
+
+                <button name="refund" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+
+            </field>
+        </record>
+
+        <record id="pos_refund_wizard_form_view" model="ir.ui.view">
+            <field name="name">pos.refund.wizard.form</field>
+            <field name="model">refund.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <!-- <label for="name"/> -->
+                            <field name="name" placeholder="Search By Receipt Ref."/>
+                        </h1>
+                        <notebook>
+                            <page string="Orders">
+                                <field name="order_ids">
+                                    <tree create="false">
+                                        <field name="name"/>
+                                        <field name="pos_reference"/>
+                                        <field name="partner_id"/>
+                                        <field name="date_order"/>
+                                        <field name="user_id"/>
+                                        <field name="amount_total" sum="Amount total" widget="monetary"/>
+                                        <field name="state"/>
+                                        <field name="session_id" />
+
+                                        <button name="do_refund" string="Return Products" type="object"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <footer>
+                        <button special="cancel" string="Cancel" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_refund" model="ir.actions.act_window">
+            <field name="name">Refund</field>
+            <field name="res_model">refund.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        
+
+
+        <menuitem name="Refund" id="menu_refund" parent="point_of_sale.menu_point_of_sale" action="action_refund"/>
+    </data>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_location_form_inherit">
+            <field name="name">stock.location.form.inherit</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="manager_id"/>
+                    <field name="location_email"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="stock.stock_move_action" model="ir.actions.act_window">
+            <field name="domain">[('picking_id.picking_type_code', '!=', 'internal'), ('picking_id.submitted', '!=', True),('picking_id.state', '!=', 'waiting_approval')]</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_picking_form_inherit">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <button name="action_confirm" position="after">
+                    <field name="submitted" invisible="1"/>
+                    <field name="first_approve" invisible="1"/>
+                    <field name="second_approve" invisible="1"/>
+                    <field name="visible_to_user" invisible="1"/>
+                    <field name="visible_to_manager" invisible="1"/>
+                    <button name="action_approve_1" string="Approve" type="object" class="oe_highlight" 
+                            attrs="{'invisible':['|', ('picking_type_code', '!=', 'internal'),'|', ('first_approve', '=', True), '|', ('visible_to_user','!=',True), ('state', '!=', 'assigned')]}" 
+                            />
+                    <button name="action_approve" string="Manager Approve" type="object" class="oe_highlight" 
+                            attrs="{'invisible':['|',('first_approve', '=', False), '|', ('second_approve', '=', True),'|', ('visible_to_manager', '!=', True)]}"
+                            />
+                </button>
+                <!-- <button name="action_confirm" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible':[('picking_type_code', '=', 'internal'),('state', '!=', 'approved')]}</attribute>
+                </button> -->
+                <button name="do_new_transfer" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible':[('picking_type_code', '=', 'internal'), '|',('second_approve', '!=', True), ('state', 'not in', ['assigned', 'approved'])]}</attribute>
+                </button>
+                <!-- <button name="action_confirm" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible':[('picking_type_code', '=', 'internal'),('state', 'not in', ['approved','confirmed','waiting','partially_available'])]}</attribute>
+                </button>
+                <button name="action_confirm" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible':[('picking_type_code', '=', 'internal'),('state', '!=', 'approved')]}</attribute>
+                </button> -->
+                <!-- <button name="action_confirm" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible':[('picking_type_code', '=', 'internal'),('state', '!=', 'approved')]}</attribute>
+                </button> -->
+                
+            </field>
+        </record>
+    </data>
+</odoo>    

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="worker_template" xml:space="preserve">
+  
+    <!--template for WorkerWidget-->
+    <t t-name="WorkerWidget">
+        <div class='control-button' style="width: 83%;margin-left: 16px;margin-top: 5px;margin-bottom: -5px;">
+
+
+            <div class="correct_worker">x</div>
+            <div id="worker-footer">
+                <span id="worker-title">
+                    Enter SalesPerson's ID :            
+                </span>
+                <span id="worker-frame">
+                    <t t-esc="widget.get_workers()" />
+                
+                    <t t-if="widget.pos.get_order() != null">
+                        <t t-if="widget.pos.get_order().is_return_order">
+                            <input type="text" id="worker_id"/>
+                        </t>
+                        <t t-if="!widget.pos.get_order().is_return_order">
+
+                            <input type="text" id="worker_id" placeholder="Enter Worker's ID"/>
+                        </t>
+
+
+
+                    </t>
+                </span>           
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery='div.paymentmethods-container' t-operation='after'>
+            
+            <div class="placeholder-WorkerWidget"></div>
+
+        </t>
+    </t>
+
+
+
+</templates>

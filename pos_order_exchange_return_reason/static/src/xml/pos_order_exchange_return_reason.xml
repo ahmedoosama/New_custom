@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+
+   <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".payment-buttons" t-operation="after">
+            <t t-if="widget.pos.get_order().is_return_order || widget.pos.get_order().is_exchange_order">
+            <h3>Exchange/Return/Refund Reason:</h3>
+            <select class="form-control exchange_return_reason" id="exchange_return_reason" name="exchange_return_reason" style="width:50%;">
+                <option></option>
+                <option style="font-size:16pt;" value="color" >Color</option>
+                <option style="font-size:16pt;" value="size" >Size</option>
+                <option style="font-size:16pt;" value="fabric" >Fabric</option>
+                <option  style="font-size:16pt;" value="price" >Price</option>
+                <option style="font-size:16pt;" value="others" >Others</option>
+            </select>
+            </t>
+        </t>
+    </t>
+    <!-- <t t-extend='OrdersScreenWidget'>
+        <t t-jquery='.wk_order_list thead tr' t-operation='append'>
+            <th>Exchange/Return/Refund Reason</th>
+        </t>
+    </t> -->
+    <!-- <t t-extend='WkOrderLine'>
+        <t t-jquery='.wk-order-line' t-operation='append'>
+            <td><t t-esc='order.exchange_return_reason'/></td>
+        </t>
+    </t> -->
+</templates>
+    

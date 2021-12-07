@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="pos_worker_form_view" model="ir.ui.view">
+		<field name="name">pos.worker.form.view</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<page name="hr_settings" position="after">
+				<page name="pos_settings" string="POS Settings">
+					<group>
+						<field name="is_pos_worker" string="Is He a Worker In POS ?"/>
+						<field name="worker_id" string="Worker ID"/>
+					</group>
+				</page>
+			</page>
+		</field>
+	</record>
+
+	<record id="seq_worker_id" model="ir.sequence">
+		<field name="name">Sequence.Worker</field>
+		<field name="code">worker.id</field>
+		<field name="prefix">EMP</field>
+		<field name="padding">4</field>
+		<field name="company_id" eval="False"/>
+	</record>
+
+	<record id="action_pos_worker" model="ir.actions.act_window">
+		<field name="name">Salesman</field>
+		<field name="res_model">hr.employee</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="context">{'default_is_pos_worker':True}</field>
+		<field name="domain">[('is_pos_worker','=',True)]</field>
+	</record>
+
+
+
+
+ 	<menuitem name="Workers" id="workers_main_menu" sequence="99" parent="point_of_sale.menu_point_root"/>
+
+	<menuitem name="Workers" id="workers_menu" sequence="1"
+                  parent="workers_main_menu" action="action_pos_worker"/>
+
+
+
+
+
+</odoo>
